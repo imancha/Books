@@ -1,25 +1,25 @@
 <?php include_once('inc/main.inc');
 /*
  * index.php
- * 
+ *
  * Copyright 2015 Imancha <imancha_266@ymail.com>
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
- * 
- * 
+ *
+ *
  */
 
 ?>
@@ -33,9 +33,9 @@
 <head>
 	<meta charset="UTF-8">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
-	<meta content="" name="description">
-	<meta content="" name="author">
-	<title>Imancha - Online Shop</title>	
+	<meta content="Imancha Online Shop" name="description">
+	<meta content="Mohammad Abdul Iman Syah" name="author">
+	<title>Imancha Online Shop</title>
 	<!-- Reset CSS -->
 	<link href="css/normalize.css" rel="stylesheet" type="text/css"/>
 	<!-- Bootstrap core CSS -->
@@ -67,15 +67,16 @@
 	<script src="js/jquery.easing.js" type="text/javascript"></script>
 	<script src="js/iview.js" type="text/javascript"></script>
 	<script src="js/retina-1.1.0.min.js" type="text/javascript"></script>
+	<script src="js/script.js"></script>
 	<!--[if IE 8]><script type="text/javascript" src="js/selectivizr.js"></script><![endif]-->
 </head>
 
 <body>
 <!-- Header -->
-<header> 
+<header>
   <!-- Top Heading Bar -->
   <div class="container"><?php top(); ?></div>
-  <!-- end: Top Heading Bar -->  
+  <!-- end: Top Heading Bar -->
   <div class="f-space20"></div>
   <!-- Logo and Search -->
   <div class="container">
@@ -100,7 +101,7 @@
           <ul>
             <!-- Menu Item Links for Mobiles Only -->
             <li class="visible-xs"><a href="#"><i class="fa fa-home"></i> <span>Home</span> <i class="fa fa-angle-right"></i></a><?php mobile(); ?></li>
-            <!-- end: Menu Item --> 
+            <!-- end: Menu Item -->
             <!-- Menu Item for Tablets and Computers Only-->
             <li class="hidden-xs"> <a href="#"><i class="fa fa-files-o"></i> <span>Pages</span> <i class="fa fa-angle-right"></i></a><?php tablet(); ?></li>
             <!-- end: Menu Item -->
@@ -110,12 +111,12 @@
             <!-- end: Menu Item -->
           </ul>
         </div>
-        <!-- end: Mega Menu --> 
+        <!-- end: Mega Menu -->
       </div>
-      <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 menu-col-2"> 
+      <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 menu-col-2">
         <!-- Navigation Buttons/Quick Cart for Tablets and Desktop Only -->
         <div class="menu-links hidden-xs"><?php navigation(); ?></div>
-        <!-- end: Navigation Buttons/Quick Cart Tablets and large screens Only --> 
+        <!-- end: Navigation Buttons/Quick Cart Tablets and large screens Only -->
       </div>
     </div>
   </div>
@@ -126,7 +127,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="breadcrumb"> <a href="./"> <i class="fa fa-home fa-fw"></i> Home </a> <?php breadcrumb(); ?> </div>
-      
+
       <!-- Quick Help for tablets and large screens -->
       <div class="quick-message hidden-xs">
         <div class="quick-box">
@@ -141,8 +142,8 @@
             <a class="left carousel-control" data-slide="prev" href="#quickbox"> <i class="fa fa-angle-left fa-fw"></i> </a> <a class="right carousel-control" data-slide="next" href="#quickbox"> <i class="fa fa-angle-right fa-fw"></i> </a> </div>
         </div>
       </div>
-      <!-- end: Quick Help --> 
-      
+      <!-- end: Quick Help -->
+
     </div>
   </div>
 </div>
@@ -150,9 +151,9 @@
 <?php main(); banner(); ?>
 <!-- footer -->
 <footer class="footer"><?php footer(); ?></footer>
-<!-- end: footer --> 
+<!-- end: footer -->
 
-<!-- Style Switcher JS --> 
+<!-- Style Switcher JS -->
 <script src="js/style-switch.js" type="text/javascript"></script>
 <section id="style-switch" class="bgcolor3">
   <h2>Style Switch <a href="#" class="btn color2"><i class="fa fa-cog "></i></a></h2>
@@ -185,11 +186,11 @@
 		//SPECIALS
 			$('#productc2').carousel({
 				interval: 4000
-			}); 
+			});
 			//RELATED PRODUCTS
 			$('#productc4').carousel({
 				interval: 6000
-			}); 			
+			});
 })(jQuery);
 </script>
 </body>

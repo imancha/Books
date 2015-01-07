@@ -379,7 +379,7 @@
 				$sql_ = "SELECT * FROM `Author` HAVING `ID` IN (SELECT `ID Author` FROM `Book Author` WHERE `ID Book`=".$row['ID'].")";
 				$res_ = @mysql_query($sql_) or die(mysql_error());
 				if(mysql_num_rows($res_) > 0){
-					while($row_ = mysql_fetch_assoc($res_)){
+					while($row_ = mysql_fetch_assoc($res_)){						
 						$author .= '<option value="'.$row_['Name'].'" selected>'.$row_['Name'].'</option>';
 					}
 				}

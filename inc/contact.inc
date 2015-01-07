@@ -1,28 +1,28 @@
 <?php
 /*
  * contact.inc
- * 
+ *
  * Copyright 2015 Imancha <imancha_266@ymail.com>
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
- * 
- * 
+ *
+ *
  */
- 
-	echo '<div class="container"> 
+
+	echo '<div class="container">
 					<!-- row -->
 					<div class="row">
 						<div class="col-md-9 col-sm-12 col-xs-12 main-column box-block">
@@ -30,7 +30,7 @@
 							<div class="clearfix f-space30"></div>
 							<div class="contactform">
 								<h2 class="title" style="margin-top:19px">Contact Form</h2>
-								<p>Vestibulum congue sollicitudin neque, placerat lobortis enim facilisis sed. Etiam interdum dignissim sem id luctus. Sed nunc lectus, 
+								<p>Vestibulum congue sollicitudin neque, placerat lobortis enim facilisis sed. Etiam interdum dignissim sem id luctus. Sed nunc lectus,
 									ornare quis interdum eu, auctor sit amet lorem. Quisque condimentum orci.</p>
 								<form>
 									<div class="row">
@@ -51,7 +51,7 @@
 								</form>
 							</div>
 						</div>
-						
+
 						<!-- side bar -->
 						<div class="col-md-3 col-sm-12 col-xs-12 box-block page-sidebar">
 							<div class="box-heading"><span>Contact Details</span></div>
@@ -70,13 +70,13 @@
 								<div class="contactdetails-box"> <span class="icon"><i class="fa fa-phone fa-fw"></i></span> <span class="details">+6285 795525434</span> </div>
 								<div class="contactdetails-box"> <span class="icon"><i class="fa fa-envelope fa-fw"></i></span> <span class="details">imancha_266@ymail.com</span> </div>
 								<div class="contactdetails-box"> <span class="icon"><i class="fa fa-globe fa-fw"></i></span> <span class="details">http://imanchaos.com</span> </div>
-							</div>							
-							<!-- end: Contact Details -->';							
+							</div>
+							<!-- end: Contact Details -->';
 							bestseller();
 		echo'		</div>
-						<!-- end:sidebar --> 
+						<!-- end:sidebar -->
 					</div>
-					<!-- end:row --> 
+					<!-- end:row -->
 				</div>
 				<!-- end: container-->
 

@@ -1,28 +1,28 @@
-<?php include_once('connect.inc'); ob_start(); session_start();
+<?php include_once('connect.inc');
 /*
  * product.inc
- * 
+ *
  * Copyright 2015 Imancha <imancha_266@ymail.com>
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
- * 
- * 
+ *
+ *
  */
 
-	mysql_open();	
+	mysql_open();
 	$sql = "SELECT a.`ID`,a.`Title`,a.`SubTitle`,a.`Description`,a.`ISBN`,a.`Publisher`,a.`Page`,a.`Year`,a.`Language`,b.`Price`,b.`Stock` FROM `Book` a JOIN `Stock` b ON a.`ID`=b.`ID Book` WHERE a.`ISBN`=".$_GET['product']." AND b.`ID Warehouse`=".$_SESSION['region']." LIMIT 1";
 	$res = @mysql_query($sql) or die(mysql_error());
 	if(mysql_num_rows($res) == 1){
@@ -33,33 +33,56 @@
 			while($row_ = mysql_fetch_assoc($res_)){
 				$author .= $row_['Name'].'; ';
 			}
-		}		
-		echo '<div class="container"> 
+		}
+		$sql_ = "SELECT * FROM `Book Review` WHERE `ID Book`=".$row['ID']."";
+		$res_ = @mysql_query($sql_) or die(mysql_error());
+		$rate = 0;
+		$star = '';
+		if(mysql_num_rows($res_) > 0){
+			while($row_ = mysql_fetch_assoc($res_)){
+				$rate += int($row_['Rate']);
+			}
+		}
+		for($i=1; $i<=5; $i++){
+			if($i <= (round($rate/20,0))){
+				$star .= '<i class="fa fa-star"></i> ';
+			}else{
+				$star .= '<i class="fa fa-star-o"></i> ';
+			}
+		}
+		$sql__ = "SELECT * FROM `Category Detail` HAVING `ID` IN (SELECT `ID Category Detail` FROM `Book Category` WHERE `ID Book`=".$row['ID'].") ORDER BY `Name` ASC";
+		$res__ = @mysql_query($sql__) or die(mysql_error());
+		if(mysql_num_rows($res__) > 0){
+			while($row__ = mysql_fetch_assoc($res__)){
+				$tags .= '<a href="#a">'.$row__['Name'].'</a>';
+			}
+		}
+		echo '<div class="container">
 					<!-- row -->
 					<div class="row">
-						<div class="col-md-12 box-block"> 							
-							<!--  box content -->							
-							<div class="box-content"> 
+						<div class="col-md-12 box-block">
+							<!--  box content -->
+							<div class="box-content">
 								<!-- single product -->
-								<div class="single-product"> 
+								<div class="single-product">
 									<!-- Images -->
 									<div class="images col-md-4 col-sm-12 col-xs-12">
-										<div class="row"> 											
+										<div class="row">
 											<!-- Big Image and Zoom -->
 											<div class="big-image col-md-12 col-sm-12 col-xs-12"> <img id="product-image" src="images/cover/'.$row['Title'].'.png" data-zoom-image="images/cover/'.$row['Title'].'.png" alt="big image" /> </div>
-											<!-- end: Big Image and Zoom --> 
+											<!-- end: Big Image and Zoom -->
 										</div>
-									</div>									
-									<!-- end: Images --> 									
-									<!-- product details -->									
-									<div class="product-details col-md-8 col-sm-12 col-xs-12">										
+									</div>
+									<!-- end: Images -->
+									<!-- product details -->
+									<div class="product-details col-md-8 col-sm-12 col-xs-12">
 										<!-- Title and rating info -->
 										<div class="title">
 											<h1>'.$row['Title'].'</h1>
-											<div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-half-o"></i> <i class="fa fa-star-o"></i> <span>This product has 30 review(s) <a href="#a">Add Review</a></span> </div>
+											<div class="rating"> '.$star.' <span>This product has '.(mysql_num_rows($res_)).' review(s) <a href="#details-info">Add Review</a></span> </div>
 										</div>
-										<!-- end: Title and rating info -->										
-										<div class="row"> 
+										<!-- end: Title and rating info -->
+										<div class="row">
 											<!-- Availability, Product Code, Brand and short info -->
 											<div class="short-info-wr col-md-12 col-sm-12 col-xs-12">
 												<div class="short-info">
@@ -70,48 +93,47 @@
 													<div class="product-attr-text"><p>Pages: <span><i>'.$row['Page'].'</i></span></p></div>
 													<div class="product-attr-text"><p>Year: <span><i>'.$row['Year'].'</i></span></p></div>
 													<div class="product-attr-text"><p>Language: <span><i>'.$row['Language'].'</i></span></p></div>
-													<div class="product-attr-text"><p>Availability: <span class="available"><i>'.$row['Stock'].' in Stock</i></span></p></div>													
+													<div class="product-attr-text"><p>Availability: <span class="available"><i>'.$row['Stock'].' in Stock</i></span></p></div>
 												</div>
 											</div>
-											<!-- end: Availability, Product Code, Brand and short info --> 											
-										</div>										
+											<!-- end: Availability, Product Code, Brand and short info -->
+										</div>
 										<div class="row">
-											<div class="price-wr col-md-4 col-sm-8 col-xs-12">
+											<div class="price-wr col-md-6 col-sm-8 col-xs-12">
 												<div class="big-price"> <span class="price-new"><span class="sym">'.($_SESSION['region']==1 ? 'Rp' : '$').'</span>'.$row['Price'].'</span> </div>
 											</div>
-											<div class="product-btns-wr col-md-8 col-sm-8 col-xs-12">
+											<div class="product-btns-wr col-md-6 col-sm-8 col-xs-12">
 												<div class="product-btns">
 													<div class="product-big-btns">
-														<button class="btn btn-addtocart"> <i class="fa fa-shopping-cart fa-fw"></i> Add to Cart </button>
-														<button class="btn btn-compare"> <i class="fa fa-retweet fa-fw"></i> Add to Compare </button>
-														<button class="btn btn-wishlist"> <i class="fa fa-heart fa-fw"></i> Add to Wishlist </button>														
+														<button class="btn btn-compare"> <i class="fa fa-heart fa-fw"></i> Add to Wishlist </button>
+														<button class="btn btn-addtocart" onclick="window.location=\'./?cart=add&item='.$row['ID'].'\'"> <i class="fa fa-shopping-cart fa-fw"></i> Add to Cart </button>
 													</div>
 												</div>
 											</div>
 										</div>
-									</div>									
-									<!-- end: product details --> 									
-								</div>								
-								<!-- end: single product --> 								
-							</div>							
-							<!-- end: box content --> 							
+									</div>
+									<!-- end: product details -->
+								</div>
+								<!-- end: single product -->
+							</div>
+							<!-- end: box content -->
 						</div>
 					</div>
-					<!-- end:row --> 
+					<!-- end:row -->
 				</div>
-				<!-- end: container-->				
+				<!-- end: container-->
 				<!-- container -->
 				<div class="container">
 					<!-- row -->
-					<div class="row"> 						
+					<div class="row">
 						<!-- tabs -->
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-column box-block product-details-tabs">       
-							<!-- Details Info/Reviews/Tags --> 
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-column box-block product-details-tabs">
+							<!-- Details Info/Reviews/Tags -->
 							<!-- Nav tabs -->
 							<ul class="nav nav-tabs blog-tabs nav-justified">
 								<li class="active"><a href="#details-info" data-toggle="tab"><i class="fa  fa-th-list fa-fw"></i> Description</a></li>
 								<li><a href="#reviews" data-toggle="tab"><i class="fa fa-comments fa-fw"></i> Reviews</a></li>
-								<li> <a href="#tags" data-toggle="tab"><i class="fa fa-tags fa-fw"></i> Tags </a> </li>								
+								<li> <a href="#tags" data-toggle="tab"><i class="fa fa-tags fa-fw"></i> Tags </a> </li>
 							</ul>
 						<!-- Tab panes -->
 						<div class="tab-content">
@@ -150,7 +172,7 @@
 							<div class="write-reivew" id="#write-review">
 								<h3>Write a reivew</h3>
 								<div class="fr-border"></div>
-								
+
 								<!-- Form -->
 								<form action="#self" id="review_form" method="post">
 									<div class="row">
@@ -176,14 +198,14 @@
 									</div>
 									<button class="btn normal color1 pull-right">Submit</button>
 								</form>
-								<!-- end: Form --> 
+								<!-- end: Form -->
 							</div>
 						</div>
 						<div class="tab-pane" id="tags">
-							<div class="tags"> <a href="#a">Free</a> <a href="#a">Minimal</a> <a href="#a">Clean</a> <a href="#a">Flatro</a> <a href="#a">Metro</a> <a href="#a">Flat</a> <a href="#a">Blue</a> <a href="#a">Fashion</a> <a href="#a">Best</a> <a href="#a">Popular</a> <a href="#a">Good</a> <a href="#a">Free</a> <a href="#a">Minimal</a> <a href="#a">Clean</a> <a href="#a">Flatro</a> <a href="#a">Metro</a> <a href="#a">Flat</a> <a href="#a">Blue</a> <a href="#a">Fashion</a> <a href="#a">Best</a> <a href="#a">Popular</a> <a href="#a">Good</a> <a href="#a">Free</a> <a href="#a">Minimal</a> <a href="#a">Clean</a> <a href="#a">Flatro</a> <a href="#a">Metro</a> <a href="#a">Flat</a> <a href="#a">Blue</a> <a href="#a">Fashion</a> <a href="#a">Best</a> <a href="#a">Popular</a> <a href="#a">Good</a> <a href="#a">Free</a> <a href="#a">Minimal</a> <a href="#a">Clean</a> <a href="#a">Flatro</a> <a href="#a">Metro</a> <a href="#a">Flat</a> <a href="#a">Blue</a> <a href="#a">Fashion</a> <a href="#a">Best</a> <a href="#a">Popular</a> <a href="#a">Good</a> <a href="#a">Free</a> <a href="#a">Minimal</a> <a href="#a">Clean</a> <a href="#a">Flatro</a> <a href="#a">Metro</a> <a href="#a">Flat</a> <a href="#a">Blue</a> <a href="#a">Fashion</a> <a href="#a">Best</a> <a href="#a">Popular</a> <a href="#a">Good</a> </div>
-						</div>						
+							<div class="tags">'.$tags.'</div>
+						</div>
 					</div>
-					<!-- end: Tab panes --> 
+					<!-- end: Tab panes -->
 					<!-- end: Details Info/Reviews/Tags -->
 					<div class="clearfix f-space30"></div>
 				</div>
@@ -193,5 +215,5 @@
 				</div>
 				<!-- end: container -->';
 	}else{error();}
-	mysql_close();	
+	mysql_close();
 ?>

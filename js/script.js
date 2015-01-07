@@ -37,11 +37,3 @@ function showBook(id){
 	xmlhttp.open("GET",("./ajax/getBook.php?id="+id),true);
 	xmlhttp.send(null);
 }
-function addCart(){ if (xmlhttp.readyState==4){ document.getElementById('displayBook').innerHTML=xmlhttp.responseText; } }
-function addCart(x){
-	xmlhttp=GetXmlHttpObject();
-	if (xmlhttp==null){ alert ("Your browser does not support AJAX!"); return; }	
-	xmlhttp.onreadystatechange=displayBook;
-	xmlhttp.open("GET",("./ajax/getBook.php?id="+id),true);
-	xmlhttp.send(null);
-}
