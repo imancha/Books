@@ -47,6 +47,8 @@ jQuery(document).ready(function(){
 
 	// Tags Input
 	jQuery('#tags').tagsInput();
+	jQuery('#author').tagsInput({defaultText: 'Add author'});
+	jQuery('#category').tagsInput({defaultText: 'Add category'});
 
 	// Spinner
 	jQuery("#spinner").spinner({min: 0, max: 100, increment: 2});
@@ -63,6 +65,7 @@ jQuery(document).ready(function(){
 
 	// Textarea Autogrow
 	jQuery('#autoResizeTA').autogrow();
+	jQuery('#author').autogrow();
 
 
 	// With Form Validation

@@ -28,7 +28,7 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="page-title">
-									<h2>Checkout <span>(4 Steps)</span></h2>
+									<h2>'.$GLOBALS['O7'].' <span>(4 '.$GLOBALS['O19'].')</span></h2>
 								</div>
 							</div>
 						</div>
@@ -44,21 +44,25 @@
 									<div class="panel-group" id="checkout-options">
 										<!--Shipping Address panel -->
 										<div class="panel panel-default">
-											<div class="panel-heading closed" data-parent="#checkout-options" data-target="#op3" data-toggle="collapse">
-												<h4 class="panel-title"> <a href="#a"> <span class="fa fa-envelope-o"></span> SHIPPING ADDRESS </a><span class="op-number">01</span> </h4>
+											<div class="panel-heading" data-parent="#checkout-options" data-target="#op3" data-toggle="collapse">
+												<h4 class="panel-title"> <a href="#"> <span class="fa fa-envelope-o"></span> '.$GLOBALS['O20'].' </a><span class="op-number">01</span> </h4>
 											</div>
 											<div class="panel-collapse collapse in" id="op3">
 												<div class="panel-body">
 													<div class="row co-row">
-														<form>
+
 															<!-- Login -->
 															<div class="col-md-6 col-xs-12">
 																<div class="box-content form-box">
-																	<h4>Your Personal Details</h4>
-																	<input type="text" value="" name="firstname" placeholder="First Name*" class="input4" required>
-																	<input type="text" value="" name="lastname" placeholder="Last Name*" class="input4" required>
-																	<input type="text" value="" name="email" placeholder="Email*" class="input4" required>
-																	<input type="text" value="" name="phone" placeholder="Phone*" class="input4" required>
+																	<h4>'.$GLOBALS['O21'].'</h4>
+																	<div id="error1" class="alert">'.$GLOBALS['O22'].'</div>
+																	<input type="text" value="" autocomplete="off" id="firstname" placeholder="'.$GLOBALS['O23'].'" class="input4" required>
+																	<div id="error2" class="alert">'.$GLOBALS['O22'].'</div>
+																	<input type="text" value="" autocomplete="off" id="lastname" placeholder="'.$GLOBALS['O24'].'" class="input4" required>
+																	<div id="error3" class="alert">'.$GLOBALS['O22'].'</div>
+																	<input type="text" value="" autocomplete="off" id="email" placeholder="'.$GLOBALS['O25'].'" class="input4" required>
+																	<div id="error4" class="alert">'.$GLOBALS['O22'].'</div>
+																	<input type="text" value="" autocomplete="off" id="phone" placeholder="'.$GLOBALS['O26'].'" class="input4" required>
 																</div>
 															</div>
 															<!-- end: Login -->
@@ -66,18 +70,24 @@
 
 															<div class="col-md-6 col-xs-12">
 																<div class="box-content form-box">
-																	<h4>Your Address</h4>
-																	<input type="text" value="" name="company" placeholder="Company" class="input4">
-																	<input type="text" value="" name="address1" placeholder="Address line 1*" class="input4" required>
-																	<input type="text" value="" name="address2" placeholder="Address line 2" class="input4">
-																	<input type="text" value="" name="city" placeholder="City*" class="input4" required>
-																	<input type="text" value="" name="postcode" placeholder="Post Code" class="input4">
-																	<input type="text" value="" name="state" placeholder="State*" class="input4" required>
-																	<input type="text" value="" name="country" placeholder="Country*" class="input4" required>
-																	<button class="btn medium color2 pull-right">Continue</button>
+																	<h4>'.$GLOBALS['O27'].'</h4>
+																	<div id="error5" class="alert">'.$GLOBALS['O22'].'</div>
+																	<input type="text" value="" autocomplete="off" id="company" placeholder="'.$GLOBALS['O28'].'" class="input4">
+																	<div id="error6" class="alert">'.$GLOBALS['O22'].'</div>
+																	<input type="text" value="" autocomplete="off" id="address" placeholder="'.$GLOBALS['O29'].'" class="input4" required>
+																	<div id="error7" class="alert">'.$GLOBALS['O22'].'</div>
+																	<input type="text" value="" autocomplete="off" id="city" placeholder="'.$GLOBALS['O30'].'" class="input4" required>
+																	<div id="error8" class="alert">'.$GLOBALS['O22'].'</div>
+																	<input type="text" value="" autocomplete="off" id="postcode" placeholder="'.$GLOBALS['O31'].'" class="input4">
+																	<div id="error9" class="alert">'.$GLOBALS['O22'].'</div>
+																	<input type="text" value="" autocomplete="off" id="state" placeholder="'.$GLOBALS['O32'].'" class="input4" required>
+																	<div id="error10" class="alert">'.$GLOBALS['O22'].'</div>
+																	<input type="text" value="" autocomplete="off" id="country" placeholder="'.$GLOBALS['O33'].'" class="input4" required>
+																	<button id="formOne" class="btn medium color2 pull-right" onclick="formOne()">'.$GLOBALS['O34'].'</button>
+																	<button id="editOne" class="btn medium color2 pull-right none" onclick="editOne()">'.$GLOBALS['O35'].'</button>
 																</div>
 															</div>
-														</form>
+
 														<!-- end: Register -->
 
 													</div>
@@ -89,39 +99,38 @@
 
 										<!--Shipping Method -->
 
-										<div class="panel panel-default"> <!-- add class disabled to prevent from clicking -->
-											<div class="panel-heading closed" data-parent="#checkout-options" data-target="#op4" data-toggle="collapse">
-												<h4 class="panel-title"> <a href="#a"> <span class="fa fa-truck"></span> SHIPPING METHOD </a><span class="op-number">02</span> </h4>
+										<div id="p4" class="panel panel-default disabled"> <!-- add class disabled to prevent from clicking -->
+											<div class="panel-heading collapsed" data-parent="#checkout-options" data-target="#op4" data-toggle="collapse">
+												<h4 class="panel-title"> <a href="#a"> <span class="fa fa-truck"></span> '.$GLOBALS['O36'].' </a><span class="op-number">02</span> </h4>
 											</div>
 											<div class="panel-collapse collapse" id="op4">
 												<div class="panel-body">
-													<div class="row co-row">
-
-														<!-- Shipping methods -->
-														<div class="col-md-12 col-xs-12">
-															<div class="box-content form-box">
-																<h4>Please select the preferred shipping method to use on this order.</h4>
-																<label class="radio" for="radio1">
-																	<input type="radio" value="" id="radio1" data-toggle="radio"  name="shippingmethod" checked="checked" class="pull-left">
-																	<span class="pull-left color1 provider">Standard International Postage</span> - <span class="color2 price">Free</span><br/>
-																	<em>Delivered to your letterbox within <br/>
-																	7-14 working days</em> </label>
-																<label class="radio" for="radio2">
-																	<input type="radio" value="" id="radio2" data-toggle="radio"  name="shippingmethod" class="pull-left">
-																	<span class="pull-left color1 provider">DHL Standard Postage</span> - <span class="color2 price">$2.99</span><br/>
-																	<em>Delivered to your letterbox within <br/>
-																	2-5 working days</em> </label>
-																<label class="radio" for="radio3">
-																	<input type="radio" value="" id="radio3" data-toggle="radio" name="shippingmethod" class="pull-left">
-																	<span class="pull-left color1 provider">FEDEX QUICK DELIVERY</span> - <span class="color2 price">$6.40</span><br/>
-																	<em>Delivered to your letterbox within <br/>
-																	1-3 working days</em> </label>
-																<button class="btn medium color2 pull-right">Continue</button>
+													<div class="row co-row">';
+													mysql_open();
+													$sql = "SELECT * FROM `Shipping Method` WHERE `ID Warehouse`=".$_SESSION['region']."";
+													$res = @mysql_query($sql) or die(mysql_error());
+													if(mysql_num_rows($res) > 0){
+														echo '<!-- Shipping methods -->
+																	<div class="col-md-12 col-xs-12">
+																		<div class="box-content form-box">
+																			<h4>'.$GLOBALS['O37'].'</h4>
+																			<div id="error11" class="alert">'.$GLOBALS['O22'].'</div>';
+														while($row = mysql_fetch_assoc($res)){
+															echo '<label class="radio" for="radio'.++$k.'">
+																			<input type="radio" value="'.$row['ID'].'" id="radio'.$k.'" data-toggle="radio" name="shippingmethod" class="pull-left">
+																			<span class="pull-left color1 provider">'.$row['Name'].'</span> - <span class="color2 price">'.symbol().$row['Cost'].'</span><br/>
+																			<em>'.$row['Description'].' <br/>'.$row['Estimate'].'</em>
+																		</label>';
+														}
+														echo '<button id="formTwo" class="btn medium color2 pull-right" onclick="formTwo()">'.$GLOBALS['O34'].'</button>
+																<button id="editTwo" class="btn medium color2 pull-right none" onclick="editTwo()">'.$GLOBALS['O34'].'</button>
 															</div>
 														</div>
-														<!-- end: Shipping methods -->
+														<!-- end: Shipping methods -->';
+													}
+													mysql_close();
 
-													</div>
+									echo '	</div>
 												</div>
 											</div>
 										</div>
@@ -130,37 +139,40 @@
 
 										<!-- Payment Method -->
 
-										<div class="panel panel-default"> <!-- add class disabled to prevent from clicking -->
-											<div class="panel-heading closed" data-parent="#checkout-options" data-target="#op5" data-toggle="collapse">
-												<h4 class="panel-title"> <a href="#a"> <span class="fa fa-money"></span> PAYMENT METHOD </a><span class="op-number">03</span> </h4>
+										<div id="p5" class="panel panel-default disabled"> <!-- add class disabled to prevent from clicking -->
+											<div class="panel-heading collapsed" data-parent="#checkout-options" data-target="#op5" data-toggle="collapse">
+												<h4 class="panel-title"> <a href="#a"> <span class="fa fa-money"></span> '.$GLOBALS['O38'].' </a><span class="op-number">03</span> </h4>
 											</div>
 											<div class="panel-collapse collapse" id="op5">
 												<div class="panel-body">
-													<div class="row co-row">
+													<div class="row co-row">';
 
-														<!-- Payment methods -->
-														<div class="col-md-12 col-xs-12">
-															<div class="box-content form-box">
-																<h4>Please select the preferred Payment method to use on this order.</h4>
-																<label class="radio" for="radio4">
-																	<input type="radio" value="" id="radio4" data-toggle="radio"  name="paymentmethod" class="pull-left">
-																	<span class="pull-left color1 provider">Direct Bank Transfer</span><br/>
-																	<em>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order wont be shipped until the funds have cleared in our account.</em> </label>
-																<label class="radio" for="radio5">
-																	<input type="radio" value="" id="radio5" data-toggle="radio"  name="paymentmethod" checked="checked" class="pull-left">
-																	<span class="pull-left color1 provider">Monybookers</span><br/>
-																	<em>Moneybookers(Skrill) makes it easy for developers to accept credit cards on the web.</em> </label>
-																<label class="radio" for="radio6">
-																	<input type="radio" value="" id="radio6" data-toggle="radio"  name="paymentmethod" class="pull-left">
-																	<span class="pull-left color1 provider">Paypal</span><br/>
-																	<em>Appropriately seize value-added quality vectors via fully researched process improvements. </em> </label>
-																<textarea name="comments" id="comments" cols="10" rows="8" class="input4" placeholder="Comments/messsage"></textarea>
-																<button class="btn medium color2 pull-right">Continue</button>
-															</div>
-														</div>
-														<!-- end: Payment methods -->
+													mysql_open();
+													$sql = "SELECT * FROM `Payment Method` WHERE `ID Warehouse`=".$_SESSION['region']."";
+													$res = @mysql_query($sql) or die(mysql_error());
+													if(mysql_num_rows($res) > 0){
+														echo '<!-- Payment methods -->
+																	<div class="col-md-12 col-xs-12">
+																		<div class="box-content form-box">
+																			<h4>'.$GLOBALS['O39'].'</h4>
+																			<div id="error12" class="alert">'.$GLOBALS['O22'].'</div>';
+														while($row = mysql_fetch_assoc($res)){
+															echo '	<label class="radio" for="radoi'.++$j.'">
+																				<input type="radio" value="'.$row['ID'].'" id="radoi'.$j.'" data-toggle="radio" name="paymentmethod" class="pull-left">
+																				<span class="pull-left color1 provider">'.$row['Name'].'</span><br/>
+																				<em>'.$row['Description'].'</em>
+																			</label>';
+														}
+														echo '		<textarea name="comments" id="comments" cols="10" rows="8" class="input4" placeholder="'.$GLOBALS['O40'].'"></textarea>
+																			<button id="formThree" class="btn medium color2 pull-right" onclick="formThree()">'.$GLOBALS['O34'].'</button>
+																			<button id="editThree" class="btn medium color2 pull-right none" onclick="editThree()">'.$GLOBALS['O35'].'</button>
+																		</div>
+																	</div>
+																	<!-- end: Payment methods -->';
+													}
+													mysql_close();
 
-													</div>
+										echo '</div>
 												</div>
 											</div>
 										</div>
@@ -169,16 +181,16 @@
 
 										<!-- Confirm Order -->
 
-										<div class="panel panel-default"> <!-- add class disabled to prevent from clicking -->
-											<div class="panel-heading closed" data-parent="#checkout-options" data-target="#op6" data-toggle="collapse">
-												<h4 class="panel-title"> <a href="#a"> <span class="fa fa-check"></span> Confirm Order </a><span class="op-number">04</span> </h4>
+										<div id="p6" class="panel panel-default disabled"> <!-- add class disabled to prevent from clicking -->
+											<div class="panel-heading collapsed" data-parent="#checkout-options" data-target="#op6" data-toggle="collapse">
+												<h4 class="panel-title"> <a href="#"> <span class="fa fa-check"></span> '.$GLOBALS['O41'].' </a><span class="op-number">04</span> </h4>
 											</div>
 											<div class="panel-collapse collapse" id="op6">
 												<div class="panel-body">
 													<div class="row co-row">
 														<div class="col-md-12 col-xs-12">
 															<div class="box-content form-box">
-																<h4>Please confirm your order.</h4>';
+																<h4>'.$GLOBALS['O42'].'</h4>';
 		mysql_open();
 		foreach($_SESSION['cart'] as $cart){
 			$sql = "SELECT * FROM `Book` WHERE `ID`=".$cart['id']." LIMIT 1";
@@ -191,12 +203,7 @@
 					$row_ = mysql_fetch_assoc($res_);
 					$sql__ = "SELECT * FROM `Author` HAVING `ID` IN (SELECT `ID Author` FROM `Book Author` WHERE `ID Book`=".$row['ID'].")";
 					$res__ = @mysql_query($sql__) or die(mysql_error());
-					if(mysql_num_rows($res__) > 0){
-						$author = '';
-						while($row__ = mysql_fetch_assoc($res__)){
-							$author .= $row__['Name'].'; ';
-						}
-					}
+					if(mysql_num_rows($res__) > 0){$author = ''; while($row__ = mysql_fetch_assoc($res__)){$author .= $row__['Name'].'; ';}}
 					echo '<div class="row">
 									<div class="product">
 										<div class="col-md-2 col-sm-3 hidden-xs p-wr">
@@ -228,9 +235,7 @@
 												<div class="product-attrb">
 													<div class="qtyinput">
 														<div class="quantity-inp">
-															<input type="text" class="quantity-input" name="p_quantity" value="'.$cart['qty'].'" disabled>
-															<div class="quantity-txt minusbtn"><a href="./?cart=minus&item='.$cart['id'].'" class="qty qtyminus" ><i class="fa fa-minus fa-fw"></i></a></div>
-															<div class="quantity-txt plusbtn"><a href="./?cart=plus&item='.$cart['id'].'" class="qty qtyplus" ><i class="fa fa-plus fa-fw"></i></a></div>
+															<input type="text" style="text-align:center; padding:0px;" class="quantity-input" name="p_quantity" value="'.$cart['qty'].'" disabled>
 														</div>
 													</div>
 												</div>
@@ -246,7 +251,7 @@
 										<div class="col-md-1 col-sm-2 col-xs-3 p-wr">
 											<div class="product-attrb-wr">
 												<div class="product-attrb">
-													<div class="remove"> <button class="btn color2" data-toggle="tooltip" data-original-title="Remove" onclick="window.location=\'./?cart=remove&item='.$row['ID'].'\'"><i class="fa fa-trash-o fa-fw color2"></i></button> </div>
+													<div class="remove"> <button class="btn color2" data-toggle="tooltip" data-original-title="Update" onclick="window.location=\'./?!=cart#'.++$i.'\'"><i class="fa fa-edit fa-fw color2"></i></button> </div>
 												</div>
 											</div>
 										</div>
@@ -256,42 +261,44 @@
 				}
 			}
 		}
-		echo' 						<div class="box-content cart-box-wr pull-right">
-                        <div class="cart-box-tm">
-													<div class="tm1">Sub-Total</div>
-													<div class="tm2">'.symbol().$subtotal.'</div>
+		$total = $subtotal;
+		echo' 								<div class="box-content cart-box-wr pull-right">
+														<div class="cart-box-tm">
+															<div class="tm1">Sub-Total</div>
+															<div class="tm2">'.symbol().'<span class="pull-right">'.$subtotal.'</span></div>
+														</div>
+														<div class="clearfix f-space10"></div>
+														<div class="cart-box-tm">
+															<div class="tm1">Eco Tax (0.00) </div>
+															<div class="tm2">'.symbol().'<span class="pull-right">0.00</span></div>
+														</div>
+														<div class="clearfix f-space10"></div>
+														<div class="cart-box-tm">
+															<div class="tm1">VAT (0%) </div>
+															<div class="tm2">'.symbol().'<span class="pull-right">0.00</span></div>
+														</div>
+														<div class="clearfix f-space10"></div>
+														<div class="cart-box-tm">
+															<div class="tm3 bgcolor2">Total </div>
+															<div class="tm4 bgcolor2">'.symbol().'<span class="pull-right">'.$total.'</span></div>
+														</div>
+													</div>
+													<div class="clearfix f-space20"></div>
+													<button class="btn large color1 pull-right" onclick="order()">Create Order</button>
+													<button class="btn large color3 pull-right" style="margin-right:2px" onclick="window.location=\'./?!=cart\'">'.$GLOBALS['O43'].'</button>
 												</div>
-												<div class="clearfix f-space10"></div>
-												<div class="cart-box-tm">
-													<div class="tm1">Eco Tax (0.00) </div>
-													<div class="tm2">'.symbol().'0.00</div>
-												</div>
-												<div class="clearfix f-space10"></div>
-												<div class="cart-box-tm">
-													<div class="tm1">VAT (0%) </div>
-													<div class="tm2">'.symbol().'0.00</div>
-												</div>
-												<div class="clearfix f-space10"></div>
-												<div class="cart-box-tm">
-													<div class="tm3 bgcolor2">Total </div>
-													<div class="tm4 bgcolor2">'.symbol().$total.'</div>
-												</div>
-                      </div>
-                      <div class="clearfix f-space20"></div>
-                      <!--  <textarea name="comments" id="comments" cols="5" rows="5" class="input4" placeholder="Comments/messsage"></textarea> -->
-
-                      <button class="btn large color1 pull-right">Create Order</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- end: Confirm Order -->
-        </div>
-      </div>
-      <!-- end: Checkout Options -->
-    </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- end: Confirm Order -->
+						</div>
+					</div>
+					<!-- end: Checkout Options -->
+				</div>
+			</div>
+		</div>
 		<div class="clearfix f-space30"></div>';
 		mysql_close();
 	}else{header('Location: ./?!=cart'); exit();}

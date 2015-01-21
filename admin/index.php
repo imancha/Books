@@ -1,7 +1,7 @@
 <!--
    index.php
 
-   Copyright 2014 Imancha <imancha_266@ymail.com>
+   Copyright 2015 Imancha <imancha_266@ymail.com>
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -33,7 +33,23 @@
 		<link rel="stylesheet" href="css/responsive-tables.css">
 		<link rel="stylesheet" href="css/bootstrap-fileupload.min.css" type="text/css" />
 		<link rel="stylesheet" href="css/jquery-te-1.4.0.css" type="text/css" />
+	</head>
 
+	<body>
+		<div class="mainwrapper">
+			<div class="header"><?php top(); ?></div>
+			<div class="leftpanel"><?php navigation(); ?></div>
+			<div class="rightpanel">
+				<div class="breadcrumb"><?php breadcrumb(); ?></div>
+        <div class="pageheader"><?php pageheader(); ?></div>
+        <div class="maincontent">
+					<div class="maincontentinner">
+						<div class="main"><?php main(); ?></div>
+						<div class="footer"><?php footer(); ?></div><!--footer-->
+					</div><!--maincontentinner-->
+        </div><!--maincontent-->
+			</div><!--rightpanel-->
+		</div><!--mainwrapper-->
 		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery-migrate-1.1.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.9.2.min.js"></script>
@@ -55,29 +71,28 @@
 		<script type="text/javascript" src="js/flot/jquery.flot.resize.min.js"></script>
 		<script type="text/javascript" src="js/tinymce/jquery.tinymce.js"></script>
 		<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
-		<script type="text/javascript" src="js/jquery-te-1.4.0.min.js"></script>		
+		<script type="text/javascript" src="js/jquery-te-1.4.0.min.js"></script>
 		<script type="text/javascript" src="js/responsive-tables.js"></script>
 		<script type="text/javascript" src="js/wysiwyg.js"></script>
+		<script type="text/javascript" src="js/fullcalendar.min.js"></script>
+		<script type="text/javascript" src="js/jquery.jgrowl.js"></script>
+		<script type="text/javascript" src="js/jquery.alerts.js"></script>
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
 		<script type="text/javascript" src="js/forms.js"></script>
 		<script type="text/javascript" src="js/custom.js"></script>
+		<script type="text/javascript" src="js/elements.js"></script>
 		<script type="text/javascript" src="js/script.js"></script>
-		<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
-	</head>
+		<script type="text/javascript">
+			jQuery('.accordion').accordion({heightStyle: "content"});
+			//Replaces data-rel attribute to rel.
+			//We use data-rel because of w3c validation issue
+			jQuery('[data-rel]').each(function() {
+					jQuery(this).attr('rel', jQuery(this).data('rel'));
+			});
 
-	<body>
-		<div class="mainwrapper">
-			<div class="header"><?php top(); ?></div>
-			<div class="leftpanel"><?php navigation(); ?></div>
-			<div class="rightpanel">
-				<div class="breadcrumb"><?php breadcrumb(); ?></div>
-        <div class="pageheader"><?php pageheader(); ?></div>
-        <div class="maincontent">
-					<div class="maincontentinner">
-						<div class="main"><?php main(); ?></div>
-						<div class="footer"><?php footer(); ?></div><!--footer-->
-					</div><!--maincontentinner-->
-        </div><!--maincontent-->
-			</div><!--rightpanel-->
-		</div><!--mainwrapper-->		
+			jQuery("[data-rel='tooltip']").tooltip();
+		</script>		
+		<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
 	</body>
 </html>
+<?php ob_end_flush(); ?>

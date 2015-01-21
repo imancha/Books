@@ -26,7 +26,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="page-title">
-								<h2>About us</h2>
+								<h2>'.$GLOBALS['O4'].'</h2>
 							</div>
 						</div>
 					</div>
@@ -40,9 +40,7 @@
 									<div class="col-lg-6 col-md-5 col-sm-12 about-image"><img src="images/aboutus.jpg" alt="about company"></div>
 									<div class="col-lg-6 col-md-7 col-sm-12 about-company">
 										<h2>IMANCHA<sup>OS</sup></h2>
-										<h4>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</h4>
-										<p> Donec rutrum congue leo eget malesuada. Sed porttitor lectus nibh. Curabitur aliquet quam id dui posuere blandit. Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Donec sollicitudin molestie malesuada. Sed porttitor lectus nibh. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-										<p>Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidu.</p>
+										'.$GLOBALS['O17'].'
 									</div>
 								</div>
 							</div>

@@ -1,6 +1,6 @@
 <?php include_once('connect.inc');
 /*
- * cart.inc
+ * wishlist.inc
  *
  * Copyright 2015 Imancha <imancha_266@ymail.com>
  *
@@ -26,15 +26,15 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="page-title">
-								<h2>'.$GLOBALS['O18'].' ('.count($_SESSION['cart']).' Items)</h2>
+								<h2>'.$GLOBALS['O5'].' ('.count($_SESSION['wishlist']).' Items)</h2>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row clearfix f-space10"></div>';
-	if(!empty($_SESSION['cart'])){
+	if(!empty($_SESSION['wishlist'])){
 		mysql_open();
-		foreach($_SESSION['cart'] as $cart){
+		foreach($_SESSION['wishlist'] as $cart){
 			$sql = "SELECT * FROM `Book` WHERE `ID`=".$cart['id']." LIMIT 1";
 			$res = @mysql_query($sql) or die(mysql_error());
 			if(mysql_num_rows($res) == 1){
@@ -52,7 +52,7 @@
 						}
 					}
 					echo '<!-- product -->
-								<div class="container" id="'.++$i.'">
+								<div class="container">
 									<div class="row">
 										<div class="product">
 											<div class="col-md-2 col-sm-3 hidden-xs p-wr">
@@ -85,8 +85,8 @@
 														<div class="qtyinput">
 															<div class="quantity-inp">
 																<input type="text" class="quantity-input" name="p_quantity" value="'.$cart['qty'].'" disabled>
-																<div class="quantity-txt minusbtn"><a href="./?cart=minus&item='.$cart['id'].'" class="qty qtyminus" ><i class="fa fa-minus fa-fw"></i></a></div>
-																<div class="quantity-txt plusbtn"><a href="./?cart=plus&item='.$cart['id'].'" class="qty qtyplus" ><i class="fa fa-plus fa-fw"></i></a></div>
+																<div class="quantity-txt minusbtn"><a href="./?wishlist=minus&item='.$cart['id'].'" class="qty qtyminus" ><i class="fa fa-minus fa-fw"></i></a></div>
+																<div class="quantity-txt plusbtn"><a href="./?wishlist=plus&item='.$cart['id'].'" class="qty qtyplus" ><i class="fa fa-plus fa-fw"></i></a></div>
 															</div>
 														</div>
 													</div>
@@ -102,7 +102,8 @@
 											<div class="col-md-1 col-sm-2 col-xs-3 p-wr">
 												<div class="product-attrb-wr">
 													<div class="product-attrb">
-														<div class="remove"> <button class="btn color2" data-toggle="tooltip" data-original-title="Remove" onclick="window.location=\'./?cart=remove&item='.$row['ID'].'\'"><i class="fa fa-trash-o fa-fw color2"></i></button> </div>
+														<div class="remove"> <button class="btn color2" data-toggle="tooltip" data-original-title="'.$GLOBALS['O15'].'" onclick="window.location=\'./?cart=add&item='.$row['ID'].'\'"><i class="fa fa-shopping-cart fa-fw color1"></i></button> </div>
+														<div class="add"><button class="btn color2" data-toggle="tooltip" data-original-title="Remove" onclick="window.location=\'./?wishlist=remove&item='.$row['ID'].'\'"><i class="fa fa-trash-o fa-fw color2"></i></button></div>
 													</div>
 												</div>
 											</div>
@@ -159,25 +160,23 @@
 								<div class="box-content">
 									<div class="cart-box-tm">
 										<div class="tm1">Sub-Total</div>
-										<div class="tm2">'.symbol().'<span class="pull-right">'.$subtotal.'</span></div>
+										<div class="tm2">'.symbol().$subtotal.'</div>
 									</div>
 									<div class="clearfix f-space10"></div>
 									<div class="cart-box-tm">
 										<div class="tm1">Eco Tax (0.00) </div>
-										<div class="tm2">'.symbol().'<span class="pull-right">0.00</span></div>
+										<div class="tm2">'.symbol().'0.00</div>
 									</div>
 									<div class="clearfix f-space10"></div>
 									<div class="cart-box-tm">
 										<div class="tm1">VAT (0%) </div>
-										<div class="tm2">'.symbol().'<span class="pull-right">0.00</span></div>
+										<div class="tm2">'.symbol().'0.00</div>
 									</div>
 									<div class="clearfix f-space10"></div>
 									<div class="cart-box-tm">
 										<div class="tm3 bgcolor2">Total </div>
-										<div class="tm4 bgcolor2">'.symbol().'<span class="pull-right">'.$total.'</span></div>
+										<div class="tm4 bgcolor2">'.symbol().$total.'</div>
 									</div>
-									<div class="clearfix f-space10"></div>
-									<button class="btn large color1 pull-right" onclick="window.location=\'./?!=checkout\'">Proceed to Checkout</button>
 									<div class="clearfix f-space30"></div>
 								</div>
 							</div>

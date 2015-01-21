@@ -29,19 +29,35 @@ function GetXmlHttpObject(){
 	if (window.ActiveXObject){ return new ActiveXObject("Microsoft.XMLHTTP"); }
 	return null;
 }
-function displayBook(){ if (xmlhttp.readyState==4){ document.getElementById('displayBook').innerHTML=xmlhttp.responseText; } }
-function showBook(id){
+function rmove(a,b){
+	if(confirm('Delete \''+b+'\' from the database?')){
+    alert("OK");
+  } else {
+    
+	}
+/*	
 	xmlhttp=GetXmlHttpObject();
 	if (xmlhttp==null){ alert ("Your browser does not support AJAX!"); return; }	
-	xmlhttp.onreadystatechange=displayBook;
-	xmlhttp.open("GET",("./ajax/getBook.php?id="+id),true);
+	xmlhttp.onreadystatechange=function(){
+		if (xmlhttp.readyState==4 && xmlhttp.status == 200){
+			if(xmlhttp.responseText == "address"){				
+			}
+		}
+	};
+	xmlhttp.open("GET",("./ajax/ajax.php?a="+firstname+"&b="+lastname+"&c="+email+"&d="+company+"&e="+address+"&f="+city+"&g="+postcode+"&h="+state+"&i="+country+"&!=address"),true);
+	xmlhttp.send(null);	*/
+}
+function deleteCategory(x){
+	xmlhttp=GetXmlHttpObject();
+	if (xmlhttp==null){ alert ("Your browser does not support AJAX!"); return; }	
+	xmlhttp.onreadystatechange=function(){if(xmlhttp.readyState==4 && xmlhttp.status == 200){document.getElementById("msg").innerHTML = xmlhttp.responseText;}};
+	xmlhttp.open("GET","./ajax/ajax.php?!=categories&i=delete&)="+x,true);
 	xmlhttp.send(null);
 }
-function addCart(){ if (xmlhttp.readyState==4){ document.getElementById('displayBook').innerHTML=xmlhttp.responseText; } }
-function addCart(x){
+function updateC(x){
 	xmlhttp=GetXmlHttpObject();
 	if (xmlhttp==null){ alert ("Your browser does not support AJAX!"); return; }	
-	xmlhttp.onreadystatechange=displayBook;
-	xmlhttp.open("GET",("./ajax/getBook.php?id="+id),true);
+	xmlhttp.onreadystatechange=function(){if(xmlhttp.readyState==4 && xmlhttp.status == 200){if("OK"){window.location.href="./?!=categories"}}};
+	xmlhttp.open("GET","./ajax/ajax.php?!=categories&i=update&)="+x+"&*="+document.getElementById("name").value,true);
 	xmlhttp.send(null);
 }

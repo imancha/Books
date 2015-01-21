@@ -124,13 +124,13 @@ jQuery(document).ready(function(){
 
 	// dynamic table
 	jQuery('#dyntable').dataTable({
+			"iDisplayLength": 20,
 			"sPaginationType": "full_numbers",
 			"aaSortingFixed": [[0,'asc']],
 			"fnDrawCallback": function(oSettings) {
 					jQuery.uniform.update();
 			}
-	});			
-
+	});				
 
 	// simple chart
 	var flash = [[0, 11], [1, 9], [2,12], [3, 8], [4, 7], [5, 3], [6, 1]];
@@ -197,6 +197,8 @@ jQuery(document).ready(function(){
 	
 	// tabbed widget
 	jQuery('.tabbedwidget').tabs();
-	
+
+	// accordion widget
+	jQuery('.accordion').accordion({heightStyle: "content"});
 	
 });

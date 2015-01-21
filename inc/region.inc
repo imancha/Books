@@ -1,8 +1,4 @@
-<?php session_start();
-	if(isset($_SESSION['region'])){
-
-	}
-?>
+<?php session_start(); ?>
 <!--
 /*
  * region.inc

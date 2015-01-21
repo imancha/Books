@@ -1,6 +1,6 @@
 <?php include_once('connect.inc');
 /*
- * index.inc
+ * tag.inc
  *
  * Copyright 2015 Imancha <imancha_266@ymail.com>
  *
@@ -22,10 +22,8 @@
  *
  */
 
-	mysql_open();
-	$sql = "SELECT * FROM `Stock` WHERE `ID Warehouse` = ".$_SESSION['region']."";
-	if(isset($_GET['tags'])){$sql .= " HAVING `ID Book` IN (SELECT `ID Book` FROM `Book Category` WHERE `ID Category Detail`=(SELECT `ID` FROM `Category Detail` WHERE LOWER(`Name`) LIKE LOWER('%".str_replace("_"," ",$_GET['tags'])."%') LIMIT 1))";}
-//	else if(isset($_GET['tag'])){$sql .= "  HAVING `ID Book` IN (SELECT `ID Book` FROM `Book Category` WHERE `ID Category Detail`=(SELECT `ID` FROM `Category Detail` WHERE `ID Category`=(SELECT `ID` FROM `Category` WHERE LOWER(`Name`) LIKE LOWER('".str_replace("_"," ",$_GET['tag'])."') LIMIT 1)))";}
+	mysql_open();	
+	$sql = "SELECT * FROM `Book Category` WHERE `ID Category Detail`=(SELECT `ID` FROM `Category Detail` WHERE LOWER(`Name`) LIKE LOWER('".$_GET['tag']."'))";
 	$res = @mysql_query($sql) or die(mysql_error($_SERVER['HTTP_REFERER']));
 	$max = mysql_num_rows($res);
 	if(isset($_GET['max'])){
@@ -89,26 +87,26 @@
 				<!-- row -->
 				<div class="row">
 					<div class="col-md-9 col-sm-12 col-xs-12 box-block">
-						<div class="box-heading category-heading"><span>'.$GLOBALS['O45'].' '.$start.'-'.$end.' '.$GLOBALS['O46'].' '.$max.' '.$GLOBALS['O47'].'</span>
+						<div class="box-heading category-heading"><span>Showing '.$start.'-'.$end.' of '.$max.' products</span>
 								<ul class="nav nav-pills pull-right">
-									<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" href=""> '.$_SESSION['max'].' '.$GLOBALS['O48'].' <i class="fa fa-sort fa-fw"></i> </a>
+									<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" href=""> '.$_SESSION['max'].' per page <i class="fa fa-sort fa-fw"></i> </a>
 										<ul class="dropdown-menu" role="menu">
-											<li'.$a0.'><a href="./?max=12">12 '.$GLOBALS['O48'].'</a></li>
-											<li'.$a1.'><a href="./?max=24">24 '.$GLOBALS['O48'].'</a></li>
-											<li'.$a2.'><a href="./?max=48">48 '.$GLOBALS['O48'].'</a></li>
-											<li'.$a3.'><a href="./?max=96">96 '.$GLOBALS['O48'].'</a></li>
-											<li'.$a6.'><a href="./?max=all">'.$GLOBALS['O49'].'</a></li>
+											<li'.$a0.'><a href="./?max=12">12 per page</a></li>
+											<li'.$a1.'><a href="./?max=24">24 per page</a></li>
+											<li'.$a2.'><a href="./?max=48">48 per page</a></li>
+											<li'.$a3.'><a href="./?max=96">96 per page</a></li>
+											<li'.$a6.'><a href="./?max=all">Show all</a></li>
 										</ul>
 									</li>
 									<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" href=""> Sort by <i class="fa fa-sort fa-fw"></i> </a>
 										<ul class="dropdown-menu" role="menu">
-											<li'.$b0.'><a href="./?sort=name&to=asc">'.$GLOBALS['O50'].' (A-Z)</a></li>
-											<li'.$b1.'><a href="./?sort=name&to=desc">'.$GLOBALS['O50'].' (Z-A)</a></li>
-											<li'.$b2.'><a href="./?sort=price&to=asc">'.$GLOBALS['O51'].' ('.$GLOBALS['O52'].')</a></li>
-											<li'.$b3.'><a href="./?sort=price&to=desc">'.$GLOBALS['O51'].' ('.$GLOBALS['O53'].')</a></li>
-											<li'.$b4.'><a href="./?sort=publisher&to=asc">'.$GLOBALS['O54'].' (A-Z)</a></li>
-											<li'.$b5.'><a href="./?sort=publisher&to=desc">'.$GLOBALS['O54'].' (Z-A)</a></li>
-											<li'.$b6.'><a href="./?sort=recent">'.$GLOBALS['O55'].'</a></li>
+											<li'.$b0.'><a href="./?sort=name&to=asc">Name (A-Z)</a></li>
+											<li'.$b1.'><a href="./?sort=name&to=desc">Name (Z-A)</a></li>
+											<li'.$b2.'><a href="./?sort=price&to=asc">Price (Low-High)</a></li>
+											<li'.$b3.'><a href="./?sort=price&to=desc">Price (High-Low)</a></li>
+											<li'.$b4.'><a href="./?sort=publisher&to=asc">Publisher (A-Z)</a></li>
+											<li'.$b5.'><a href="./?sort=publisher&to=desc">Publisher (Z-A)</a></li>
+											<li'.$b6.'><a href="./?sort=recent">Recent</a></li>
 										</ul>
 									</li>
 									<li class="view-list'.$c1.'"> <a href="./?view=list"> <i class="fa fa-list-ul fa-fw"></i></a> </li>
@@ -118,10 +116,7 @@
 							<div class="row clearfix f-space10"></div>
 							<div class="box-content">
 								<div class="box-products">';
-	$sql = "SELECT a.`ID`,a.`Title`,a.`SubTitle`,a.`Description`,a.`ISBN`,b.`Price`,b.`ID Book` FROM `Book` a JOIN `Stock` b ON a.`ID`=b.`ID Book` WHERE b.`ID Warehouse`=".$_SESSION['region']."";
-	if(isset($_GET['tags'])){$sql .= " HAVING b.`ID Book` IN (SELECT `ID Book` FROM `Book Category` WHERE `ID Category Detail`=(SELECT `ID` FROM `Category Detail` WHERE LOWER(`Name`) LIKE LOWER('%".str_replace("_"," ",$_GET['tags'])."%') LIMIT 1))";}
-//	else if(isset($_GET['tag'])){$sql .= "  HAVING b.`ID Book` IN (SELECT `ID Book` FROM `Book Category` WHERE `ID Category Detail`=(SELECT `ID` FROM `Category Detail` WHERE `ID Category`=(SELECT `ID` FROM `Category` WHERE LOWER(`Name`) LIKE LOWER('".str_replace("_"," ",$_GET['tag'])."') LIMIT 1)))";}
-	$sql .= " ORDER BY ".$_SESSION['sort']." LIMIT ".($start-1).",".($end)."";
+	$sql = "SELECT a.`ID`,a.`Title`,a.`SubTitle`,a.`Description`,a.`ISBN`,b.`Price` FROM `Book` a JOIN `Stock` b ON a.`ID`=b.`ID Book` WHERE b.`ID Warehouse`=".$_SESSION['region']." ORDER BY ".$_SESSION['sort']." LIMIT ".($start-1).",".($end)."";
 	$res = @mysql_query($sql) or die(mysql_error());
 	if(mysql_num_rows($res) > 0){
 		if($_SESSION['view'] == 'list'){
@@ -150,17 +145,17 @@
 										<h1><a href="./?product='.$row['ISBN'].'">'.$row['Title'].'</a></h1>
 										<div style="color:#ffffff">'.$row['SubTitle'].'&nbsp;</div>
 										<div class="rating">'.$star.'</div>
-										<span class="reviews-info">'.$GLOBALS['O56'].' '.(mysql_num_rows($res_)).' '.$GLOBALS['O57'].'</span> </div>
+										<span class="reviews-info">This product has '.(mysql_num_rows($res_)).' review(s)</span> </div>
 								</div>
 								<div class="col-md-3 col-sm-4 col-xs-12 product-price">
 									<div class="big-price"> <span class="price-new"><span class="sym">'.symbol().'</span>1'.$row['Price'].'</span> </div>
 								</div>
 								<div class="col-md-5 col-sm-8 col-xs-12 product-meta">
 									<div class="productmeta">
-										'.substr(strip_tags($row['Description']),0,250).'... '.'<a href="./?product='.$row['ISBN'].'">'.$GLOBALS['O58'].'</a>
+										'.substr(strip_tags($row['Description']),0,250).'... '.'<a href="./?product='.$row['ISBN'].'">read more</a>
 										<div class="category-list-btns">
-											<button class="btn normal btn-compare" data-toggle="tooltip" title="'.$GLOBALS['O59'].'"  onclick="window.location=\'./?wishlist=add&item='.$row['ID'].'\'"> <i class="fa normal fa-heart fa-fw"></i> </button>
-											<button class="btn normal btn-addtocart" onclick="window.location=\'./?cart=add&item='.$row['ID'].'\'"> <i class="fa fa-shopping-cart fa-fw"></i> '.$GLOBALS['O15'].' </button>
+											<button class="btn normal btn-compare" data-toggle="tooltip" title="Add to Wishlist"  onclick="window.location=\'./?wishlist=add&item='.$row['ID'].'\'"> <i class="fa normal fa-heart fa-fw"></i> </button>
+											<button class="btn normal btn-addtocart" onclick="window.location=\'./?cart=add&item='.$row['ID'].'\'"> <i class="fa fa-shopping-cart fa-fw"></i> Add to Cart </button>
 										</div>
 									</div>
 								</div>
@@ -190,12 +185,12 @@
 									<div class="product-meta">
 										<div class="name"><a href="./?product='.$row['ISBN'].'">'.$row['Title'].'</a></div>
 										<div class="big-price"> <span class="price-new"><span class="sym">'.symbol().'</span>'.$row['Price'].'</span> </div>
-										<div class="big-btns"> <button class="btn btn-default btn-view pull-left" onclick="window.location=\'./?product='.$row['ISBN'].'\'">'.$GLOBALS['O14'].'</button> <button class="btn btn-default btn-addtocart pull-right" onclick="window.location=\'./?cart=add&item='.$row['ID'].'\'">'.$GLOBALS['O15'].'</button> </div>
+										<div class="big-btns"> <button class="btn btn-default btn-view pull-left" onclick="window.location=\'./?product='.$row['ISBN'].'\'">View</button> <button class="btn btn-default btn-addtocart pull-right" onclick="window.location=\'./?cart=add&item='.$row['ID'].'\'">Add to Cart</button> </div>
 										<div class="small-price"> <span class="price-new"><span class="sym">'.symbol().'</span>'.$row['Price'].'</span> </div>
 										<div class="rating">'.$star.'</div>
 										<div class="small-btns">
-											<button class="btn btn-default btn-compare pull-left" data-toggle="tooltip" title="'.$GLOBALS['O59'].'"  onclick="window.location=\'./?wishlist=add&item='.$row['ID'].'\'"> <i class="fa fa-heart fa-fw"></i> </button>
-											<button class="btn btn-default btn-addtocart pull-left" data-toggle="tooltip" title="'.$GLOBALS['O15'].'" onclick="window.location=\'./?cart=add&item='.$row['ID'].'\'"> <i class="fa fa-shopping-cart fa-fw"></i> </button>
+											<button class="btn btn-default btn-compare pull-left" data-toggle="tooltip" title="Add to Wishlist"  onclick="window.location=\'./?wishlist=add&item='.$row['ID'].'\'"> <i class="fa fa-heart fa-fw"></i> </button>
+											<button class="btn btn-default btn-addtocart pull-left" data-toggle="tooltip" title="Add to Cart" onclick="window.location=\'./?cart=add&item='.$row['ID'].'\'"> <i class="fa fa-shopping-cart fa-fw"></i> </button>
 										</div>
 									</div>
 									<div class="meta-back"></div>
@@ -217,15 +212,15 @@
 	}
 	for($p=1; $p<=$page; $p++){
 		if($page==1 OR $p==$_GET['pages']){$pa=' class="active"';}else{$pa='';}
-		$po .= '<li'.$pa.'><a href="'.(isset($_GET['tags']) ? '&' : '?').'pages='.$p.'">'.$p.'</a></li>';
+		$po .= '<li'.$pa.'><a href="?pages='.$p.'">'.$p.'</a></li>';
 	}
-	$prev = (isset($_GET['tags']) ? '&' : '?').'pages='.($_GET['pages']-1);
-	$next = (isset($_GET['tags']) ? '&' : '?').'pages='.($_GET['pages']+1);
+	$prev = '?pages='.($_GET['pages']-1);
+	$next = '?pages='.($_GET['pages']+1);
 	if($_GET['pages'] == 1 OR $page==1){$pp=' class="disabled"';$prev='';}
 	if($_GET['pages'] == $page OR $page==1){$pn=' class="disabled"';$next='';}
 	echo '	</div>
 				</div>
-				<span class="pull-left">'.$GLOBALS['O45'].' '.$start.'-'.$end.' '.$GLOBALS['O46'].' '.$max.' '.$GLOBALS['O47'].'</span>
+				<span class="pull-left">Showing '.$start.'-'.$end.' of '.$max.' products</span>
 				<div class="pull-right">
 					<ul class="pagination pagination-lg">
 						<li'.$pp.'><a href="'.$prev.'"><i class="fa fa-angle-left"></i></a></li>
@@ -239,7 +234,7 @@
 	$sql = "SELECT * FROM `Category` ORDER BY `Name` ASC";
 	$res = @mysql_query($sql) or die(mysql_error());
 	if(mysql_num_rows($res) > 0){
-		echo '<div class="box-heading"><span>'.$GLOBALS['O1'].'</span></div>
+		echo '<div class="box-heading"><span>Categories</span></div>
 					<!-- Categories -->
 					<div class="box-content">
 						<div class="panel-group" id="blogcategories">';
@@ -249,16 +244,15 @@
 			if(mysql_num_rows($res_) > 0){
 				echo '<div class="panel panel-default">
 								<div class="panel-heading closed" data-parent="#blogcategories" data-target="#collapse'.$i.'" data-toggle="collapse">
-									<h4 class="panel-title"> <a href="#"> <span class="fa fa-plus"></span> '.$row['Name'].' </a><span class="categorycount">'.(mysql_num_rows($res_)).'</span> </h4>
+									<h4 class="panel-title"> <a href="#a"> <span class="fa fa-plus"></span> '.$row['Name'].' </a><span class="categorycount">'.(mysql_num_rows($res_)).'</span> </h4>
 								</div>
 								<div class="panel-collapse collapse" id="collapse'.$i.'">
 									<div class="panel-body">
 										<ul>';
 				while($row_ = mysql_fetch_assoc($res_)){
-					echo '			<li class="item"> <a href="./?tags='.str_replace(" ","_",$row_['Name']).'">'.$row_['Name'].'</a></li>';
+					echo '			<li class="item"> <a href="#a">'.$row_['Name'].'</a></li>';
 				}
-				echo '	<!--	<li class="item"> <a href="./?tag='.str_replace(" ","_",$row['Name']).'">All '.$row['Name'].' Categories</a></li>		-->
-										</ul>
+				echo '			</ul>
 									</div>
 								</div>
 							</div>';

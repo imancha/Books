@@ -28,7 +28,7 @@
 <!--[if IE 8]><html class="ie ie8 lte9 lte8" lang="en-US">	<![endif]-->
 <!--[if IE 9]><html class="ie ie9 lte9" lang="en-US"><![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
-<html class="noIE" lang="en-US">
+<html class="noIE" lang="<?php echo $GLOBALS['O73']; ?>">
 <!--<![endif]-->
 <head>
 	<meta charset="UTF-8">
@@ -45,7 +45,7 @@
 	<!--	Responsive 3D Menu	-->
 	<link href="css/menu3d.css" rel="stylesheet"/>
 	<!-- Animations -->
-	<link href="css/animate.css" rel="stylesheet" type="text/css"/>
+	<link href="css/animate.css" rel="stylesheet" type="text/css"/>	
 	<!-- Custom styles for this template -->
 	<link href="css/custom.css" rel="stylesheet" type="text/css" />
 	<!-- Style Switcher -->
@@ -71,7 +71,7 @@
 	<!--[if IE 8]><script type="text/javascript" src="js/selectivizr.js"></script><![endif]-->
 </head>
 
-<body>
+<body onload = date_time('date_time','<?php echo $GLOBALS['O73']; ?>');>
 <!-- Header -->
 <header>
   <!-- Top Heading Bar -->
@@ -95,19 +95,17 @@
   <div class="container">
     <div class="row clearfix">
       <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 menu-col">
-        <div class="menu-heading menuHeadingdropdown"> <span> <i class="fa fa-bars"></i> Categories <i class="fa fa-angle-down"></i></span> </div>
+        <div class="menu-heading menuHeadingdropdown"> <span> <i class="fa fa-bars"></i> <?php echo $GLOBALS['O1']; ?> <i class="fa fa-angle-down"></i></span> </div>
         <!-- Mega Menu -->
         <div class="menu3dmega vertical menuMegasub" id="menuMega">
           <ul>
             <!-- Menu Item Links for Mobiles Only -->
-            <li class="visible-xs"><a href="#"><i class="fa fa-home"></i> <span>Home</span> <i class="fa fa-angle-right"></i></a><?php mobile(); ?></li>
+            <li class="visible-xs"><a href="#"><i class="fa fa-home"></i> <span><?php echo $GLOBALS['O0']; ?></span> <i class="fa fa-angle-right"></i></a><?php mobile(); ?></li>
             <!-- end: Menu Item -->
             <!-- Menu Item for Tablets and Computers Only-->
-            <li class="hidden-xs"> <a href="#"><i class="fa fa-files-o"></i> <span>Pages</span> <i class="fa fa-angle-right"></i></a><?php tablet(); ?></li>
+            <li class="hidden-xs"> <a href="#"><i class="fa fa-files-o"></i> <span><?php echo $GLOBALS['O2']; ?></span> <i class="fa fa-angle-right"></i></a><?php tablet(); ?></li>
             <!-- end: Menu Item -->
-            <?php categories(); ?>
-            <!-- Menu Item -->
-            <li> <a href="#a"> <i class="fa fa-th"></i> <span>All Categories</span></a> </li>
+            <?php categories(); ?>            
             <!-- end: Menu Item -->
           </ul>
         </div>
@@ -126,12 +124,12 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <div class="breadcrumb"> <a href="./"> <i class="fa fa-home fa-fw"></i> Home </a> <?php breadcrumb(); ?> </div>
+      <div class="breadcrumb"> <a href="./"> <i class="fa fa-home fa-fw"></i> <?php echo $GLOBALS['O0']; ?> </a> <?php breadcrumb(); ?> </div>
 
       <!-- Quick Help for tablets and large screens -->
       <div class="quick-message hidden-xs">
         <div class="quick-box">
-          <div class="quick-slide"> <span class="title">Help</span>
+          <div class="quick-slide"> <span class="title"><?php $GLOBALS['O3']; ?></span>
             <div class="quickbox slide" id="quickbox">
               <div class="carousel-inner">
                 <div class="item active"> <a href="#"> <i class="fa fa-envelope fa-fw"></i> Quick Message</a> </div>
@@ -176,23 +174,10 @@
   </div>
   <div id="reset" class="inner"><a href="#" class="btn normal color2 ">Reset</a></div>
 </section>
-<script>
-(function($) {
-	"use strict";
-	$('#menuMega').menu3d();
-		$('.quickbox').carousel({
-			interval: 10000
-		});
-		//SPECIALS
-			$('#productc2').carousel({
-				interval: 4000
-			});
-			//RELATED PRODUCTS
-			$('#productc4').carousel({
-				interval: 6000
-			});
-})(jQuery);
-</script>
+<!-- Google Maps -->
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
+<script type="text/javascript" src="js/gmap3.js"></script> 
+<script src="js/custom.js" type="text/javascript"></script>
 </body>
 </html>
 <?php ob_end_flush(); ?>

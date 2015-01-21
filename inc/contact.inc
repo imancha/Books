@@ -30,8 +30,7 @@
 							<div class="clearfix f-space30"></div>
 							<div class="contactform">
 								<h2 class="title" style="margin-top:19px">Contact Form</h2>
-								<p>Vestibulum congue sollicitudin neque, placerat lobortis enim facilisis sed. Etiam interdum dignissim sem id luctus. Sed nunc lectus,
-									ornare quis interdum eu, auctor sit amet lorem. Quisque condimentum orci.</p>
+								<p></p>
 								<form>
 									<div class="row">
 										<div class="col-md-5">

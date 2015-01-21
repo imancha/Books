@@ -26,7 +26,7 @@ jQuery(document).ready(function() {
 		original.wrap("<div class='table-wrapper' />");
 		
 		var copy = original.clone();
-		copy.find("td:not(:first-child), th:not(:first-child)").css("display", "none");
+		copy.find("td:not(:first-child), th:not(:first-child)").css("display", "none");		
 		copy.removeClass("responsive");
 		
 		original.closest(".table-wrapper").append(copy);
