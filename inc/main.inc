@@ -24,7 +24,9 @@
 
 	if(isset($_GET['MyRegionIs'])){		
 		session_start();
-		$_SESSION['region'] = "";
+		$_SESSION['region'] = array();
+		$_SESSION['cart'] = array();
+		$_SESSION['wishlist'] = array();
 		switch($_GET['MyRegionIs']){
 			case '>id' : $_SESSION['region'] = 1; break;
 			case '>us' : $_SESSION['region'] = 2; break;
@@ -37,7 +39,7 @@
 		header('Location: ./');
 		exit();
 	}
-	if(!isset($_SESSION['region']) || ($_SESSION['region'] != 1 AND $_SESSION['region'] != 2)){ header('Location: inc/region.inc'); exit(); }
+	if(!isset($_SESSION['region']) || ($_SESSION['region'] != 1 AND $_SESSION['region'] != 2)){ header('Location: ajax/region.php'); exit(); }
 	if(isset($_GET['cart'])){
 		switch($_GET['cart']){
 			case 'plus':
@@ -59,10 +61,16 @@
 				$_SESSION['cart'][$idx-1] = array('id'=>$_GET['item'],'qty'=>$qty-1);
 			break;
 			case 'remove':
-				foreach($_SESSION['cart'] as $cart){
-					if($cart['id'] != $_GET['item']){$cart_['cart_'][] = array('id'=>$cart['id'],'qty'=>$cart['qty']);}
-				}
-				$_SESSION['cart'] = $cart_['cart_'];
+				if(count($_SESSION['cart']) == 1){
+					$_SESSION['cart'] = array();
+				}else{
+					foreach($_SESSION['cart'] as $cart){
+						if($cart['id'] != $_GET['item']){
+							$cart_['cart_'][] = array('id'=>$cart['id'],'qty'=>$cart['qty']);
+						}
+					}
+					$_SESSION['cart'] = $cart_['cart_'];
+				}				
 			break;
 		}
 		header('Location: '.$_SERVER['HTTP_REFERER']);
@@ -84,7 +92,7 @@
 				foreach($_SESSION['wishlist'] as $cart){
 					$i++;
 					if($cart['id'] == $_GET['item']){$idx = $i; $qty = $cart['qty'];
-						if($qty-1 < 1){ header('Location: ./?cart=remove&item='.$cart['id']); exit();}}
+						if($qty-1 < 1){ header('Location: ./?wishlist=remove&item='.$cart['id']); exit();}}
 				}
 				$_SESSION['wishlist'][$idx-1] = array('id'=>$_GET['item'],'qty'=>$qty-1);
 			break;
@@ -221,7 +229,7 @@
 				}
 			}
 			mysql_close();
-		}
+		}else{$item = "";}
 		return $item;
 	}
 	function navigation(){
@@ -229,7 +237,7 @@
             <li> <a href="./"> <i class="fa fa-home fa-fw"></i> <span class="hidden-sm">'.$GLOBALS['O0'].'</span></a> </li>
             <li> <a href="./?!=about"> <i class="fa fa-info-circle fa-fw"></i> <span class="hidden-sm">'.$GLOBALS['O4'].'</span></a> </li>
             <li> <a href="./?!=contact"> <i class="fa fa-pencil-square-o fa-fw"></i> <span class="hidden-sm ">'.$GLOBALS['O11'].'</span></a> </li>
-            <li class="dropdown"> <a href="./?!=cart"> <i class="fa fa-shopping-cart fa-fw"></i> <span class="hidden-sm"> '.count($_SESSION['cart']).' items | '.symbol().total().'</span></a>
+            <li class="dropdown"> <a href="./?!=cart"> <i class="fa fa-shopping-cart fa-fw"></i> <span class="hidden-sm"> '.(count($_SESSION['cart']) < 0 ? '0' : count($_SESSION['cart'])).' items | '.symbol().total().'</span></a>
               <!-- Quick Cart -->
               <div class="dropdown-menu quick-cart">
 								<div class="qc-row qc-row-heading"> <span class="qc-col-qty">QTY</span> <span class="qc-col-name">'.count($_SESSION['cart']).' items in bag</span> <span class="qc-col-price">'.symbol().total().'</span> </div>

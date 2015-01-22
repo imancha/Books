@@ -38,7 +38,7 @@
 			case 'all' : $_SESSION['max'] = $max; break;
 			default : $_SESSION['max'] = 9;
 		}
-		header('Location: '.$_SERVER['HTTP_REFERER']);
+		header('Location: ./');
 		exit();
 	}
 	switch($_SESSION['max']){
@@ -75,21 +75,24 @@
 		header('Location: '.$_SERVER['HTTP_REFERER']);
 		exit();
 	}
-	if(!isset($_GET['pages'])){
+/*
+ 	if(!isset($_GET['pages'])){
 		$start = 1;
 		$end = 9;
 		$_GET['pages'] = 1;
 	}
+*/
+	$pages = isset($_GET['pages']) ? $_GET['pages'] : 1;
 	$_SESSION['view'] == 'list' ? $c1 = ' active' : $c2 = ' active';
-	$start = ($_SESSION['max']*$_GET['pages']-$_SESSION['max'])+1;
-	$end = $start+$_SESSION['max']-1;
+	$start = ($pages-1)*$_SESSION['max'];
+	$end = $start+$_SESSION['max'];
 	$end = $max < $end ? $max : $end;
 
 	echo '<div class="container">
 				<!-- row -->
 				<div class="row">
 					<div class="col-md-9 col-sm-12 col-xs-12 box-block">
-						<div class="box-heading category-heading"><span>'.$GLOBALS['O45'].' '.$start.'-'.$end.' '.$GLOBALS['O46'].' '.$max.' '.$GLOBALS['O47'].'</span>
+						<div class="box-heading category-heading"><span>'.$GLOBALS['O45'].' '.($start+1).'-'.$end.' '.$GLOBALS['O46'].' '.$max.' '.$GLOBALS['O47'].'</span>
 								<ul class="nav nav-pills pull-right">
 									<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" href=""> '.$_SESSION['max'].' '.$GLOBALS['O48'].' <i class="fa fa-sort fa-fw"></i> </a>
 										<ul class="dropdown-menu" role="menu">
@@ -121,7 +124,7 @@
 	$sql = "SELECT a.`ID`,a.`Title`,a.`SubTitle`,a.`Description`,a.`ISBN`,b.`Price`,b.`ID Book` FROM `Book` a JOIN `Stock` b ON a.`ID`=b.`ID Book` WHERE b.`ID Warehouse`=".$_SESSION['region']."";
 	if(isset($_GET['tags'])){$sql .= " HAVING b.`ID Book` IN (SELECT `ID Book` FROM `Book Category` WHERE `ID Category Detail`=(SELECT `ID` FROM `Category Detail` WHERE LOWER(`Name`) LIKE LOWER('%".str_replace("_"," ",$_GET['tags'])."%') LIMIT 1))";}
 //	else if(isset($_GET['tag'])){$sql .= "  HAVING b.`ID Book` IN (SELECT `ID Book` FROM `Book Category` WHERE `ID Category Detail`=(SELECT `ID` FROM `Category Detail` WHERE `ID Category`=(SELECT `ID` FROM `Category` WHERE LOWER(`Name`) LIKE LOWER('".str_replace("_"," ",$_GET['tag'])."') LIMIT 1)))";}
-	$sql .= " ORDER BY ".$_SESSION['sort']." LIMIT ".($start-1).",".($end)."";
+	$sql .= " ORDER BY ".$_SESSION['sort']." LIMIT ".($start).",".$_SESSION['max']."";
 	$res = @mysql_query($sql) or die(mysql_error());
 	if(mysql_num_rows($res) > 0){
 		if($_SESSION['view'] == 'list'){
@@ -206,26 +209,22 @@
 			echo '</div>
 						<!-- end: Products Row -->';
 		}
-	}
+	}	
 	if($_SESSION['max'] < $max){
-		$page = $max/$_SESSION['max'];
-		if($max%$_SESSION['max'] != 0){
-			$page = round($page,0)+1;
-		}
-	}else{
-		$page = 1;
-	}
+		$page = floor($max/$_SESSION['max']);
+		if($max % $_SESSION['max'] > 0){$page += 1;}
+	}else{$page = 1;}
 	for($p=1; $p<=$page; $p++){
-		if($page==1 OR $p==$_GET['pages']){$pa=' class="active"';}else{$pa='';}
+		if($page==1 OR $p==$pages){$pa=' class="active"';}else{$pa='';}
 		$po .= '<li'.$pa.'><a href="'.(isset($_GET['tags']) ? '&' : '?').'pages='.$p.'">'.$p.'</a></li>';
-	}
-	$prev = (isset($_GET['tags']) ? '&' : '?').'pages='.($_GET['pages']-1);
-	$next = (isset($_GET['tags']) ? '&' : '?').'pages='.($_GET['pages']+1);
-	if($_GET['pages'] == 1 OR $page==1){$pp=' class="disabled"';$prev='';}
-	if($_GET['pages'] == $page OR $page==1){$pn=' class="disabled"';$next='';}
+	}	
+	$prev = (isset($_GET['tags']) ? '&' : '?').'pages='.($pages-1);
+	$next = (isset($_GET['tags']) ? '&' : '?').'pages='.($pages+1);
+	if($pages == 1 OR $page==1){$pp=' class="disabled"';$prev='';}
+	if($pages == $page){$pn=' class="disabled"';$next='';}
 	echo '	</div>
 				</div>
-				<span class="pull-left">'.$GLOBALS['O45'].' '.$start.'-'.$end.' '.$GLOBALS['O46'].' '.$max.' '.$GLOBALS['O47'].'</span>
+				<span class="pull-left">'.$GLOBALS['O45'].' '.($start+1).'-'.$end.' '.$GLOBALS['O46'].' '.$max.' '.$GLOBALS['O47'].'</span>
 				<div class="pull-right">
 					<ul class="pagination pagination-lg">
 						<li'.$pp.'><a href="'.$prev.'"><i class="fa fa-angle-left"></i></a></li>
@@ -277,5 +276,5 @@
 				</div>
 				<!-- end:row -->
 			</div>';
-	mysql_close();
+//	mysql_close();
 ?>

@@ -82,7 +82,7 @@
 		$O56 = 'Produk ini mempunyai';
 		$O57 = 'review';
 		$O58 = 'selengkapnya';
-		$O59 = 'Tambah ke Daftar Keinginan';
+		$O59 = 'Tambah ke Keinginan';
 		$O60 = 'Pengarang';
 		$O61 = 'Penerbit';
 		$O62 = 'Halaman';
