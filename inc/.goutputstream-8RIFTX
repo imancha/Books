@@ -38,7 +38,7 @@
 			case 'all' : $_SESSION['max'] = $max; break;
 			default : $_SESSION['max'] = 9;
 		}
-		header('Location: ./');
+		header('Location: '.$_SERVER['HTTP_REFERER']);
 		exit();
 	}
 	switch($_SESSION['max']){
@@ -75,8 +75,15 @@
 		header('Location: '.$_SERVER['HTTP_REFERER']);
 		exit();
 	}
-	$pages = isset($_GET['pages']) ? $_GET['pages'] : 1;
+/*
+ 	if(!isset($_GET['pages'])){
+		$start = 1;
+		$end = 9;
+		$_GET['pages'] = 1;
+	}
+*/	
 	$_SESSION['view'] == 'list' ? $c1 = ' active' : $c2 = ' active';
+	$pages = isset($_GET['pages']) ? $_GET['pages'] : 1;
 	$start = ($pages-1)*$_SESSION['max'];
 	$end = $start+$_SESSION['max'];
 	$end = $max < $end ? $max : $end;
@@ -204,9 +211,15 @@
 		}
 	}	
 	if($_SESSION['max'] < $max){
-		$page = floor($max/$_SESSION['max']);
-		if($max % $_SESSION['max'] > 0){$page += 1;}
-	}else{$page = 1;}
+		$page = $max/$_SESSION['max'];
+		if($max%$_SESSION['max'] != 0){
+			$page = round($page,0)+1;
+		}
+	}else{
+		$page = 1;
+	}
+	$pages = $_GET['pages'];
+	if(!isset($_GET['pages'])){$pages=1;$start=1;}
 	for($p=1; $p<=$page; $p++){
 		if($page==1 OR $p==$pages){$pa=' class="active"';}else{$pa='';}
 		$po .= '<li'.$pa.'><a href="'.(isset($_GET['tags']) ? '&' : '?').'pages='.$p.'">'.$p.'</a></li>';
@@ -214,10 +227,10 @@
 	$prev = (isset($_GET['tags']) ? '&' : '?').'pages='.($pages-1);
 	$next = (isset($_GET['tags']) ? '&' : '?').'pages='.($pages+1);
 	if($pages == 1 OR $page==1){$pp=' class="disabled"';$prev='';}
-	if($pages == $page){$pn=' class="disabled"';$next='';}
+	if($pages == $page OR $page==1){$pn=' class="disabled"';$next='';}
 	echo '	</div>
 				</div>
-				<span class="pull-left">'.$GLOBALS['O45'].' '.($start+1).'-'.$end.' '.$GLOBALS['O46'].' '.$max.' '.$GLOBALS['O47'].'</span>
+				<span class="pull-left">'.$GLOBALS['O45'].' '.$start.'-'.$end.' '.$GLOBALS['O46'].' '.$max.' '.$GLOBALS['O47'].'</span>
 				<div class="pull-right">
 					<ul class="pagination pagination-lg">
 						<li'.$pp.'><a href="'.$prev.'"><i class="fa fa-angle-left"></i></a></li>

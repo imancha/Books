@@ -22,7 +22,7 @@
  *
  */
 
-	if(isset($_GET['MyRegionIs'])){		
+	if(isset($_GET['MyRegionIs'])){
 		session_start();
 		$_SESSION['region'] = array();
 		$_SESSION['cart'] = array();
@@ -70,7 +70,7 @@
 						}
 					}
 					$_SESSION['cart'] = $cart_['cart_'];
-				}				
+				}
 			break;
 		}
 		header('Location: '.$_SERVER['HTTP_REFERER']);
@@ -106,7 +106,7 @@
 		header('Location: '.$_SERVER['HTTP_REFERER']);
 		exit();
 	}
-	function top(){		
+	function top(){
 		echo '<div class="row">
 						<div class="col-md-12">
 							<div class="topheadrow">
@@ -141,14 +141,14 @@
 	function search(){
 		echo '<div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pull-right">
 							<div class="searchbar">
-								<form action="#">
+								<form action="">
 									<ul class="pull-left">
 										<li class="input-prepend dropdown" data-select="true"> <a class="add-on dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" href=""> <span class="dropdown-display">All Categories</span> <i class="fa fa-sort fa-fw"></i> </a>
 											<!-- this hidden field is used to contain the selected option from the dropdown -->
 											<input class="dropdown-field" type="hidden" value="All Categories"/>
 											<ul class="dropdown-menu" role="menu">';
 		mysql_open();
-		$sql = "SELECT * FROM `Category` ORDER BY RAND() LIMIT 7";
+		$sql = "SELECT * FROM `Category`";
 		$res = @mysql_query($sql) or die(mysql_error());
 		if(mysql_num_rows($res) > 0){
 			while($row = mysql_fetch_assoc($res)){
@@ -160,7 +160,7 @@
 										</li>
 									</ul>
 									<div class="searchbox pull-left">
-										<input class="searchinput" id="search" placeholder="Search..." type="search">
+										<input class="searchinput" id="search" name="q" placeholder="Search..." type="search">
 										<button class="fa fa-search fa-fw" type="submit"></button>
 									</div>
 								</form>
@@ -353,7 +353,7 @@
 		if(mysql_num_rows($res) > 0){
 			while($row = mysql_fetch_assoc($res)){
 				echo '<li><a href="#"><i class="fa fa-book"></i> <span>'.$row['Name'].'</span> <i class="fa fa-angle-right"></i> </a>';
-				$sql_ = "SELECT * FROM `Category Detail` WHERE `ID Category` = '".$row['ID']."' ORDER BY `Name` ASC";
+				$sql_ = "SELECT DISTINCT(b.`Name`) FROM `Category` a JOIN `Category Detail` b ON a.`ID` = b.`ID Category` JOIN `Book Category` c ON b.`ID` = c.`ID Category Detail` JOIN `Stock` d ON c.`ID Book` = d.`ID Book` WHERE a.`ID`=".$row['ID']." AND d.`ID Warehouse`=".$_SESSION['region']." ORDER BY `Name` ASC";
 				$res_ = @mysql_query($sql_) or die(mysql_error());
 				if(mysql_num_rows($res_) > 0){
 					echo '<div class="dropdown-menu flyout-menu">
